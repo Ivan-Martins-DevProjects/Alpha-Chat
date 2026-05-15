@@ -1,0 +1,88 @@
+<div class="sidebar" [class.open]="open">
+
+  <div class="logo">
+    @if (open) {
+      AlphaChat
+    }
+  </div>
+
+  <hr>
+
+  <div class="menu body">
+    @for (item of BodyItems; track item.id) {
+
+      <div
+        class="menu-item"
+        [class.active]="activeItem === item.id"
+        (click)="setActive(item.id)">
+
+        <i [class]="item.icon"></i>
+
+        @if (open) {
+          <span>{{ item.id }}</span>
+        }
+
+        @if (open && item.elements) {
+          <i
+            class="fa fa-chevron-right chevron"
+            [class.active]="activeItem === item.id">
+          </i>
+        }
+
+      </div>
+
+      @if (open && activeItem === item.id && item.elements) {
+
+        <div class="submenu">
+
+          @for (sub of item.elements; track sub.id) {
+
+            <div class="submenu-item"
+            [class.active]="subItemActive === sub.id"
+            (click)="setSubActive(sub.id)">
+
+              @if (sub.type === 'fas') {
+                <i [class]="sub.icon"></i>
+              }
+
+              @if (sub.type === 'google') {
+                <span class="material-symbols-outlined">
+                  {{ sub.icon }}
+                </span>
+              }
+
+              {{ sub.id }}
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+    }
+  </div>
+
+  <div class="menu footer">
+
+    @for (item of FooterItems; track item.id) {
+
+      <div
+        class="menu-item"
+        [class.active]="activeItem === item.id"
+        (click)="setActive(item.id)">
+
+        <i [class]="item.icon"></i>
+
+        @if (open) {
+          <span>{{ item.id }}</span>
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

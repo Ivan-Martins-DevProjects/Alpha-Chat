@@ -1,0 +1,123 @@
+<div class="content">
+	<div class="body">
+
+		<!-- HEADER -->
+@if(!activeChat) {
+  <div class="empty-state-container">
+    <div class="empty-state-content">
+      <div class="icon-box">
+        <i class="fa fa-comments-o"></i>
+      </div>
+      <h1>Nada por aqui ainda</h1>
+      <p>Selecione uma conversa na lista lateral para visualizar as mensagens e começar a interagir.</p>
+      <div class="status-badge">
+        <span class="dot"></span> Aguardando seleção
+      </div>
+    </div>
+  </div>
+}
+
+		@if(activeChat) {
+		<div class="chat-header">
+
+			<div class="contact-info">
+
+				<img class="contact-avatar" [src]="activeChat.avatar" alt="Amanda Costa">
+
+				<div class="contact-details">
+					<h2>{{activeChat.name}}</h2>
+					<span class="status">Online</span>
+				</div>
+			</div>
+
+			<div class="chat-actions">
+
+				<button>
+					<i class="fa fa-phone"></i>
+				</button>
+
+				<button>
+					<i class="fa fa-video-camera"></i>
+				</button>
+
+				<button>
+					<i class="fa fa-ellipsis-v"></i>
+				</button>
+			</div>
+		</div>
+
+		<!-- MESSAGES -->
+
+		<div class="messages">
+
+			@for(item of activeChat.messages; track item.id) {
+
+			@if(item.send) {
+			<div class="message-wrapper sent">
+				<div class="message" [id]="item.id">
+					<p class="message-content">
+						{{item.text}}
+					</p>
+
+					<div class="message-footer">
+						<span class="message-time">{{item.time}}</span>
+						@if(item.received) {
+						<i class="fa fa-check-double"></i>
+						} @else {
+						<i class="fa fa-check"></i>
+						}
+					</div>
+				</div>
+			</div>
+			}
+
+			@if(!item.send) {
+			<div class="message-wrapper received">
+				<div class="message" [id]="item.id">
+					<p class="message-content">
+						{{item.text}}
+					</p>
+
+					<div class="message-footer">
+						<span class="message-time">14:32</span>
+					</div>
+				</div>
+			</div>
+			}
+			}
+		</div>
+		}
+
+		<!-- INPUT -->
+
+		<div class="chat-input-container">
+
+			<div class="input-actions">
+
+				<button class="action-btn">
+					<i class="fa fa-paperclip"></i>
+				</button>
+
+				<button class="action-btn">
+					<i class="fa fa-image"></i>
+				</button>
+
+				<button class="action-btn">
+					<i class="fa fa-microphone"></i>
+				</button>
+			</div>
+
+			<div class="message-input-wrapper">
+				<input
+        type="text"
+        placeholder="Type a message..."
+        [(ngModel)]="inputMessage"
+        (keyup.enter)="addNewMessage()"
+        />
+				<button class="send-btn" (click)="addNewMessage()">
+					<i class="fa fa-paper-plane"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

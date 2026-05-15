@@ -1,0 +1,55 @@
+<div class="content">
+	<div class="list">
+		<div class="header">
+			<div class="title">
+				<h1>Conversations</h1>
+				<span>Open</span>
+			</div>
+			<div class="actions">
+				<button>
+					<i class="fa fa-filter"></i>
+				</button>
+
+				<button>
+					<i class="fa fa-sort"></i>
+				</button>
+			</div>
+		</div>
+    <div class="subheader-container">
+      <div class="search-container">
+        <i class="fa fa-search"></i>
+        <input type="text" placeholder="Search conversations...">
+      </div>
+      <div class="subheader">
+        @for (item of subheaders; track item.id) {
+        <div class="sub-h-item" [class.active]="activeSubHeader === item.id" (click)="setActiveSubHeader(item.id)">
+          {{item.id}}
+        </div>
+        }
+      </div>
+    </div>
+		@for (item of chats; track item.id) {
+		<div class="conversation-card" (click)="onSelect(item)">
+			<img class="avatar" [src]="item.avatar" alt="User Avatar">
+			<div class="conversation-content">
+				<div class="conversation-header">
+					<div class="user-info">
+						<h3>{{item.name}}</h3>
+						@if (item.tags) {
+						<div class="tags">
+							@for (tag of item.tags; track tag.name) {
+							<span class="tag" [style.color]="tag.color">{{tag.name}}</span>
+							}
+						</div>
+						}
+					</div>
+					<span class="time">{{item.lastUpdate}}</span>
+				</div>
+				<p class="last-message">
+					{{item.lastMessage}}
+				</p>
+			</div>
+		</div>
+		}
+	</div>
+</div>
