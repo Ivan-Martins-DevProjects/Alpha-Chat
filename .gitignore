@@ -57,6 +57,8 @@ dist/
 .angular/
 .cache/
 
+package-lock.json
+
 # Angular logs
 angular-errors.log
 
